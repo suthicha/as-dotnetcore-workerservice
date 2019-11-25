@@ -10,7 +10,7 @@ COPY . ./
 RUN dotnet publish -c Release -o output
 
 # build runtime image
-# FROM microsoft/aspnetcore
-# WORKDIR /app
-# COPY --from=build-env /app/output .
-ENTRYPOINT ["dotnet", "output/workerservice1.dll"]
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+WORKDIR /app
+COPY --from=build-env /app/output .
+ENTRYPOINT ["dotnet", "workerservice1.dll"]
