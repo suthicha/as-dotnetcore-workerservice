@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore-build AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-env
 WORKDIR /app
 
 # copy csproject and restore as distinct layers.
@@ -10,7 +10,7 @@ COPY . ./
 RUN dotnet publish -c Release -o output
 
 # build runtime image
-FROM microsoft/aspnetcore
-WORKDIR /app
-COPY --from=build-env /app/output .
-ENTRYPOINT ["dotnet", "workerservice1.dll"]
+# FROM microsoft/aspnetcore
+# WORKDIR /app
+# COPY --from=build-env /app/output .
+ENTRYPOINT ["dotnet", "output/workerservice1.dll"]
